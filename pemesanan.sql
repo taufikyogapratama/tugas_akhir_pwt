@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 30, 2024 at 03:40 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Dec 01, 2024 at 10:37 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `menu` (
-  `id_menu` int(11) NOT NULL,
-  `nama_makanan` varchar(100) DEFAULT NULL,
+  `id_menu` int NOT NULL,
+  `nama_makanan` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `harga` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -38,8 +38,8 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id_menu`, `nama_makanan`, `harga`) VALUES
-(1, 'nasi goreng', 10000.00),
-(5, 'sate ayam', 15000.00);
+(1, 'nasi goreng', '10000.00'),
+(7, 'bakso sapi', '13000.00');
 
 -- --------------------------------------------------------
 
@@ -48,9 +48,9 @@ INSERT INTO `menu` (`id_menu`, `nama_makanan`, `harga`) VALUES
 --
 
 CREATE TABLE `pelanggan` (
-  `id_pelanggan` int(11) NOT NULL,
-  `nama_pelanggan` varchar(100) DEFAULT NULL,
-  `no_meja` int(11) DEFAULT NULL
+  `id_pelanggan` int NOT NULL,
+  `nama_pelanggan` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `no_meja` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,10 +60,10 @@ CREATE TABLE `pelanggan` (
 --
 
 CREATE TABLE `pesanan` (
-  `id_pesanan` int(11) NOT NULL,
-  `id_pelanggan` int(11) DEFAULT NULL,
-  `id_menu` int(11) DEFAULT NULL,
-  `jumlah` int(11) DEFAULT NULL
+  `id_pesanan` int NOT NULL,
+  `id_pelanggan` int DEFAULT NULL,
+  `id_menu` int DEFAULT NULL,
+  `jumlah` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -98,19 +98,19 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pesanan` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

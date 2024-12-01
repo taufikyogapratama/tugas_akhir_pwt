@@ -1,4 +1,3 @@
-
 <?php
 // Sertakan file koneksi database
 include "database.php";
@@ -112,19 +111,6 @@ if (isset($_POST['tambah'])) {
 
     <hr>
 
-   <!-- Form Edit Data -->
-    <!-- <h1>Edit</h1>
-    <form action="admin.php" method="POST">
-        <label for="nama_makanan">Nama Makanan</label>
-        <input id="nama_makanan" type="text" name="nama_makanan" required>
-        <label for="harga">Harga</label>
-        <input id="harga" type="number" name="harga" required>
-        <button type="submit" name="edit">Tambah</button>
-    </form>
-
-    <hr> -->
-
-
     <!-- Tabel Data -->
     <h2>Daftar Menu</h2>
     <table border="1" cellspacing="0" cellpadding="5">
@@ -153,27 +139,5 @@ if (isset($_POST['tambah'])) {
         }
         ?>
     </table>
-
-    <hr>
-
-    <!-- Form Edit Data -->
-    <?php
-    if (isset($_GET['edit'])) {
-        $id = $_GET['edit'];
-        $sql_get_data = "SELECT * FROM menu WHERE id = $id";
-        $result_edit = $conn->query($sql_get_data);
-        $row_edit = $result_edit->fetch_assoc();
-    ?>
-        <h2>Edit Data</h2>
-        <form action="admin.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo $row_edit['id']; ?>">
-            <label for="nama_makanan">Nama Makanan</label>
-            <input id="nama_makanan" type="text" name="nama_makanan" value="<?php echo $row_edit['nama_makanan']; ?>" required>
-            <label for="harga">Harga</label>
-            <input id="harga" type="number" name="harga" value="<?php echo $row_edit['harga']; ?>" required>
-            <button type="submit" name="edit">Simpan</button>
-        </form>
-    <?php } ?>
 </body>
 </html>
-
