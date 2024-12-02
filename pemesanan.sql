@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 01, 2024 at 10:37 AM
+-- Generation Time: Dec 02, 2024 at 07:09 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `menu` (
   `id_menu` int NOT NULL,
-  `nama_makanan` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nama_makanan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `harga` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -49,9 +49,16 @@ INSERT INTO `menu` (`id_menu`, `nama_makanan`, `harga`) VALUES
 
 CREATE TABLE `pelanggan` (
   `id_pelanggan` int NOT NULL,
-  `nama_pelanggan` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nama_pelanggan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `no_meja` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `no_meja`) VALUES
+(1, 'Windah Basudara', 5);
 
 -- --------------------------------------------------------
 
@@ -65,6 +72,14 @@ CREATE TABLE `pesanan` (
   `id_menu` int DEFAULT NULL,
   `jumlah` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pesanan`
+--
+
+INSERT INTO `pesanan` (`id_pesanan`, `id_pelanggan`, `id_menu`, `jumlah`) VALUES
+(4, 1, 7, 2),
+(5, 1, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -98,19 +113,19 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_menu` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pesanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

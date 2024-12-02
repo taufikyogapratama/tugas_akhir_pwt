@@ -7,7 +7,7 @@ if (isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
     $sql_hapus = "DELETE FROM menu WHERE id_menu = $id";
     if ($conn->query($sql_hapus)) {
-       header("Location: admin.php"); // Redirect ke admin.php
+       header("Location: admin_menu.php"); // Redirect ke admin.php
        exit();
     } else {
         echo "Gagal menghapus data: " . $conn->error;
@@ -27,7 +27,7 @@ if (isset($_POST['edit'])) {
     // Cek apakah query berhasil
     if ($conn->query($sql_edit)) {
         // Redirect ke halaman admin setelah berhasil update
-        header("Location: admin.php");
+        header("Location: admin_menu.php");
         exit();
     } else {
         // Jika gagal, tampilkan pesan error
@@ -46,7 +46,7 @@ if (isset($_GET['edit'])) {
         ?>
         <!-- Tampilkan form edit -->
         <h2>Edit Menu</h2>
-        <form action="admin.php" method="POST">
+        <form action="admin_menu.php" method="POST">
             <input type="hidden" name="id_menu" value="<?php echo $row['id_menu']; ?>"> <!-- ID menu disembunyikan -->
             <label for="nama_makanan">Nama Makanan</label>
             <input id="nama_makanan" type="text" name="nama_makanan" value="<?php echo $row['nama_makanan']; ?>">
@@ -79,7 +79,7 @@ if (isset($_POST['tambah'])) {
 
     // Jalankan query dan cek apakah berhasil
     if ($conn->query($sql)) {
-       header("Location: admin.php"); // Redirect ke admin.php
+       header("Location: admin_menu.php"); // Redirect ke admin.php
        exit(); // Hentikan eksekusi script
     } else {
         echo "Gagal menambahkan data: " . $conn->error; // Tampilkan error jika query gagal
@@ -94,14 +94,14 @@ if (isset($_POST['tambah'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Menu</title>
+    <title>Halaman Admin</title>
 </head>
 <body>
     <h1>Manajemen Menu</h1>
 
     <!-- Form Tambah Data -->
     <h1>Tambah</h1>
-    <form action="admin.php" method="POST">
+    <form action="admin_menu.php" method="POST">
         <label for="nama_makanan">Nama Makanan</label>
         <input id="nama_makanan" type="text" name="nama_makanan" required>
         <label for="harga">Harga</label>
@@ -129,8 +129,8 @@ if (isset($_POST['tambah'])) {
                 echo "<td>" . $row['nama_makanan'] . "</td>";
                 echo "<td>Rp " . $row['harga'] . "</td>";
                 echo "<td>";
-                echo "<a href='admin.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a> | ";
-                echo "<a href='admin.php?edit=" . $row['id_menu'] . "'>Edit</a>";
+                echo "<a href='admin_menu.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a> | ";
+                echo "<a href='admin_menu.php?edit=" . $row['id_menu'] . "'>Edit</a>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -139,5 +139,11 @@ if (isset($_POST['tambah'])) {
         }
         ?>
     </table>
+    <footer>
+        <menu>
+            <div class="menu"><a href="admin_menu.php">Menu</a></div>
+            <div class="menu"><a href="admin_pesanan.php">Pesanan</a></div>
+        </menu>
+    </footer>
 </body>
 </html>
