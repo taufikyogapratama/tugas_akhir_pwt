@@ -21,8 +21,9 @@
         $id_pelanggan = $_GET['hapus'];
     
         // Hapus semua pesanan berdasarkan id_pelanggan
-        $sql_hapus_semua = "DELETE FROM pesanan WHERE id_pelanggan = $id_pelanggan";
-        if ($conn->query($sql_hapus_semua)) {
+        $sql_hapus_pesanan = "DELETE FROM pesanan WHERE id_pelanggan = $id_pelanggan";
+        $sql_hapus_pelanggan = "DELETE FROM pelanggan WHERE id_pelanggan = $id_pelanggan";
+        if ($conn->query($sql_hapus_pesanan) && $conn->query($sql_hapus_pelanggan)) {
             header("Location: admin_pesanan.php"); // Redirect ke halaman admin setelah hapus
             exit();
         } else {

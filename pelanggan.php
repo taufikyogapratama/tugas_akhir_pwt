@@ -1,3 +1,69 @@
+<?php
+// Sertakan file koneksi database
+include "database.php";
+
+$sql_read = "SELECT * FROM menu";
+$result = $conn->query($sql_read);
+
+// **4 Tambah
+// if (isset($_POST['tambah'])) {
+//     // Ambil data dari form
+//     $nama_pelanggan = $_POST['nama'];
+//     $no_meja = $_POST['no_meja'];
+
+//     // Debugging: Cek apakah data dari form dikirim
+//     if (!$nama_pelanggan || !$no_meja) {
+//         die("Form tidak lengkap. Pastikan semua data diisi.");
+//     }
+
+//     // Buat query SQL
+//     $sql_insert = "INSERT INTO pelanggan (nama_pelanggan, no_meja) VALUES ('$nama_pelanggan', '$no_meja')";
+
+//     // Jalankan query dan cek apakah berhasil
+//     if ($conn->query($sql_insert)) {
+//        header("Location: pelanggan.php"); // Redirect ke pelanggan.php
+//        exit(); // Hentikan eksekusi script
+//     } else {
+//         echo "Gagal menambahkan data: " . $conn->error; // Tampilkan error jika query gagal
+//     }
+// }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil data dari form
+    $nama_pelanggan = $_POST['nama'];
+    $no_meja = $_POST['no_meja'];
+    $cart = isset($_POST['cart']) ? json_decode($_POST['cart'], true) : [];
+
+    // Pastikan data lengkap
+    if (!$nama_pelanggan || !$no_meja || empty($cart)) {
+        die("Form tidak lengkap atau keranjang kosong.");
+    }
+
+    // Simpan data pelanggan ke database
+    $sql_insert_pelanggan = "INSERT INTO pelanggan (nama_pelanggan, no_meja) VALUES ('$nama_pelanggan', '$no_meja')";
+    if ($conn->query($sql_insert_pelanggan)) {
+        // Ambil ID pelanggan terakhir yang dimasukkan
+        $pelanggan_id = $conn->insert_id;
+
+        // Simpan setiap item keranjang ke tabel pesanan
+        foreach ($cart as $item) {
+            $menu_id = $item['id'];
+            $quantity = $item['quantity'];
+            $sql_insert_order = "INSERT INTO pesanan (id_pelanggan, id_menu, jumlah) VALUES ('$pelanggan_id', '$menu_id', '$quantity')";
+            $conn->query($sql_insert_order);
+        }
+
+        // Redirect setelah sukses
+        // header("Location: pelanggan.php?status=success");
+        header("Location: pelanggan_sukses.php");
+        exit();
+    } else {
+        echo "Gagal menyimpan data pelanggan: " . $conn->error;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +106,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
+            height: 200px;
+            overflow: auto;
             background-color: #f9f9f9;
             border-top: 1px solid #ccc;
             padding: 10px;
@@ -78,7 +146,11 @@
             text-align: center;
         }
         .checkout button {
+            position: fixed;
             padding: 10px 20px;
+            margin-left: auto;
+            margin-right: auto;
+            bottom: 30px;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -119,8 +191,10 @@
                 cartItemDiv.className = 'cart-item';
 
                 cartItemDiv.innerHTML = `
+                    <div>
                     <span>${item.name} (x${item.quantity})</span>
                     <span>Rp ${item.price * item.quantity}</span>
+                    </div>
                     <button onclick="removeFromCart(${item.id})">Hapus</button>
                 `;
 
@@ -133,71 +207,64 @@
         }
 
         function checkout() {
+            // Pastikan keranjang tidak kosong
             if (cart.length === 0) {
                 alert('Keranjang masih kosong!');
                 return;
             }
+            // Ambil elemen form pelanggan
+            const customerForm = document.getElementById('customerForm');
 
-            const customerName = prompt('Masukkan nama Anda:');
-            const tableNumber = prompt('Masukkan nomor meja Anda:');
+            // Buat input tersembunyi untuk menyisipkan data keranjang ke form
+            const cartInput = document.createElement('input');
+            cartInput.type = 'hidden';
+            cartInput.name = 'cart'; // Nama variabel untuk dikirim ke PHP
+            cartInput.value = JSON.stringify(cart); // Data keranjang dalam format JSON
+            customerForm.appendChild(cartInput);
 
-            if (!customerName || !tableNumber) {
-                alert('Nama dan nomor meja wajib diisi!');
-                return;
-            }
-
-            fetch('submit_order.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: customerName,
-                    table: tableNumber,
-                    cart: cart
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Pesanan berhasil disimpan!');
-                    cart = [];
-                    renderCart();
-                } else {
-                    alert('Terjadi kesalahan: ' + data.message);
-                }
-            });
+            // Submit form pelanggan
+            customerForm.submit();
         }
+
     </script>
 </head>
 <body>
-    <h1>Menu Restoran</h1>
-
-    <div class="menu-list">
-        <?php
-        include "database.php";
-        $sql = "SELECT * FROM menu";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<div class='menu-item'>";
-                echo "<h3>" . $row['nama_makanan'] . "</h3>";
-                echo "<p>Rp " . number_format($row['harga'], 0, ',', '.') . "</p>";
-                echo "<button onclick=\"addToCart(" . $row['id_menu'] . ", '" . $row['nama_makanan'] . "', " . $row['harga'] . ")\">Tambah</button>";
-                echo "</div>";
+    <h1>Silahkan pilih menu</h1>
+    <form action="pelanggan.php" method="POST" id="customerForm">
+        <label for="nama">Masukkan Nama:</label><br>
+        <input type="text" id="nama" name="nama" required><br>
+        <label for="no_meja">Masukkan No Meja:</label><br>
+        <input type="number" id="no_meja" name="no_meja" required><br>
+    </form>
+        
+    <div class="Menu_dan_cart">
+        <h1>Menu Restoran</h1>
+        <div class="menu-list">
+            <?php
+            // include "database.php";
+            // $sql = "SELECT * FROM menu";
+            // $result = $conn->query($sql);   
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='menu-item'>";
+                    echo "<h3>" . $row['nama_makanan'] . "</h3>";
+                    echo "<p>Rp " . number_format($row['harga'], 0, ',', '.') . "</p>";
+                    echo "<button onclick=\"addToCart(" . $row['id_menu'] . ", '" . $row['nama_makanan'] . "', " . $row['harga'] . ")\">Tambah</button>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>Tidak ada menu tersedia</p>";
             }
-        } else {
-            echo "<p>Tidak ada menu tersedia</p>";
-        }
-        ?>
-    </div>
-
-    <div class="cart">
-        <h3>Keranjang</h3>
-        <div class="cart-items">
-            <p>Keranjang kosong</p>
-        </div>
-        <div class="checkout">
-            <button onclick="checkout()">Checkout</button>
+            ?>
+        </div> 
+        <div class="cart">
+            <h3>Keranjang</h3>
+            <div class="cart-items">
+                <p>Keranjang kosong</p>
+            </div>
+            <div class="checkout">
+                <button type="button" onclick="checkout()">Checkout</button>
+            </div>
         </div>
     </div>
 </body>
