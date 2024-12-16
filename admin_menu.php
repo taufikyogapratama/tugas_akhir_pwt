@@ -129,8 +129,8 @@ if (isset($_POST['tambah'])) {
                 echo "<td>" . $row['nama_makanan'] . "</td>";
                 echo "<td>Rp " . $row['harga'] . "</td>";
                 echo "<td>";
-                echo "<a href='admin_menu.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a> | ";
-                echo "<a href='admin_menu.php?edit=" . $row['id_menu'] . "'>Edit</a>";
+                echo "<a href='admin_menu.php?edit=" . $row['id_menu'] . "'>Edit</a> | ";
+                echo "<a href='admin_menu.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>";
                 echo "</td>";
                 echo "</tr>";
             }
