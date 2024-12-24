@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2024 at 03:06 PM
+-- Generation Time: Dec 24, 2024 at 01:44 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -41,7 +41,7 @@ INSERT INTO `menu` (`id_menu`, `nama_makanan`, `harga`) VALUES
 (1, 'nasi goreng', '10000.00'),
 (7, 'bakso sapi', '13000.00'),
 (10, 'Siomay', '5000.00'),
-(11, 'es jeruk', '3000.00'),
+(11, 'es teh', '3000.00'),
 (12, 'Mie Ayam', '10000.00');
 
 -- --------------------------------------------------------
@@ -61,7 +61,8 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `no_meja`) VALUES
-(1, 'Windah Basudara', 5);
+(1, 'Windah Basudara', 5),
+(12, 'test', 6);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,10 @@ CREATE TABLE `pesanan` (
 
 INSERT INTO `pesanan` (`id_pesanan`, `id_pelanggan`, `id_menu`, `jumlah`) VALUES
 (4, 1, 7, 2),
-(5, 1, 1, 1);
+(5, 1, 1, 1),
+(33, 12, 10, 4),
+(34, 12, 11, 1),
+(35, 12, 12, 1);
 
 --
 -- Indexes for dumped tables
@@ -122,13 +126,13 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pelanggan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_pesanan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables

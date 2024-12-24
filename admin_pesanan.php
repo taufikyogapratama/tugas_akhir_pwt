@@ -43,6 +43,7 @@
 <body>
     <header>
         <h1>Halaman Daftar Pesanan</h1>
+        <button onclick="window.location.href='masuk.php'">Keluar</button>
     </header>
     <main>
         <!-- Tabel Pesanan -->

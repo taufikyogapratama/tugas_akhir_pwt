@@ -54,6 +54,7 @@ if (isset($_GET['edit'])) {
             <input id="harga" type="number" name="harga" value="<?php echo $row['harga']; ?>">
             <button type="submit" name="edit">Simpan</button>
         </form>
+        <button onclick="window.location.href='admin_menu.php'">Batal</button>
         <?php
     } else {
         echo "Data tidak ditemukan!";
@@ -97,53 +98,75 @@ if (isset($_POST['tambah'])) {
     <title>Halaman Admin</title>
 </head>
 <body>
-    <h1>Manajemen Menu</h1>
+    <header>
+        <h1>Manajemen Menu</h1>
+        <button onclick="window.location.href='masuk.php'">Keluar</button>
+    </header>
 
     <!-- Form Tambah Data -->
-    <h1>Tambah</h1>
-    <form action="admin_menu.php" method="POST">
-        <label for="nama_makanan">Nama Makanan</label>
-        <input id="nama_makanan" type="text" name="nama_makanan" required>
-        <label for="harga">Harga</label>
-        <input id="harga" type="number" name="harga" required>
-        <button type="submit" name="tambah">Tambah</button>
-    </form>
+     <section id="tambah menu" style="display: none;">
+        <h1>Tambah Menu</h1>
+        <form action="admin_menu.php" method="POST">
+            <label for="nama_makanan">Nama Makanan</label>
+            <input id="nama_makanan" type="text" name="nama_makanan" required>
+            <label for="harga">Harga</label>
+            <input id="harga" type="number" name="harga" required>
+            <button type="submit" name="tambah">Tambah</button>
+        </form>
+        <button onclick="sembunyikanDivTambah()">Batal</button>
+    </section>
 
     <hr>
 
     <!-- Tabel Data -->
-    <h2>Daftar Menu</h2>
-    <table border="1" cellspacing="0" cellpadding="5">
-        <tr>
-            <th>No</th>
-            <th>Nama Makanan</th>
-            <th>Harga</th>
-            <th>Aksi</th>
-        </tr>
-        <?php
-        if ($result->num_rows > 0) {
-            $no = 1;
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>" . $no++ . "</td>";
-                echo "<td>" . $row['nama_makanan'] . "</td>";
-                echo "<td>Rp " . $row['harga'] . "</td>";
-                echo "<td>";
-                echo "<a href='admin_menu.php?edit=" . $row['id_menu'] . "'>Edit</a> | ";
-                echo "<a href='admin_menu.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>";
-                echo "</td>";
-                echo "</tr>";
+     <section>
+        <h2>Daftar Menu</h2>
+        <button onclick="tampilkanDivTambah()">Tambah Menu</button>
+    </section>
+    <section>
+        <table border="1" cellspacing="0" cellpadding="5">
+            <tr>
+                <th>No</th>
+                <th>Nama Makanan</th>
+                <th>Harga</th>
+                <th>Aksi</th>
+            </tr>
+            <?php
+            if ($result->num_rows > 0) {
+                $no = 1;
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $no++ . "</td>";
+                    echo "<td>" . $row['nama_makanan'] . "</td>";
+                    echo "<td>Rp " . $row['harga'] . "</td>";
+                    echo "<td>";
+                    echo "<a href='admin_menu.php?edit=" . $row['id_menu'] . "'>Edit</a> | ";
+                    echo "<a href='admin_menu.php?hapus=" . $row['id_menu'] . "' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
             }
-        } else {
-            echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
-        }
-        ?>
-    </table>
+            ?>
+        </table>
+    </section>
     <footer>
         <menu>
             <div class="menu"><a href="admin_menu.php">Menu</a></div>
             <div class="menu"><a href="admin_pesanan.php">Pesanan</a></div>
         </menu>
     </footer>
+    <script>
+        function tampilkanDivTambah() {
+          const div_tambah = document.getElementById("tambah menu");
+          div_tambah.style.display = "block";
+        }
+        function sembunyikanDivTambah() {
+          const div_tambah = document.getElementById("tambah menu");
+          div_tambah.style.display = "none";
+        }
+    </script>
+    </script>
 </body>
 </html>

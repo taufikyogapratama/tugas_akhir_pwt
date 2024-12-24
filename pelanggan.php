@@ -1,32 +1,8 @@
 <?php
-// Sertakan file koneksi database
 include "database.php";
 
 $sql_read = "SELECT * FROM menu";
 $result = $conn->query($sql_read);
-
-// **4 Tambah
-// if (isset($_POST['tambah'])) {
-//     // Ambil data dari form
-//     $nama_pelanggan = $_POST['nama'];
-//     $no_meja = $_POST['no_meja'];
-
-//     // Debugging: Cek apakah data dari form dikirim
-//     if (!$nama_pelanggan || !$no_meja) {
-//         die("Form tidak lengkap. Pastikan semua data diisi.");
-//     }
-
-//     // Buat query SQL
-//     $sql_insert = "INSERT INTO pelanggan (nama_pelanggan, no_meja) VALUES ('$nama_pelanggan', '$no_meja')";
-
-//     // Jalankan query dan cek apakah berhasil
-//     if ($conn->query($sql_insert)) {
-//        header("Location: pelanggan.php"); // Redirect ke pelanggan.php
-//        exit(); // Hentikan eksekusi script
-//     } else {
-//         echo "Gagal menambahkan data: " . $conn->error; // Tampilkan error jika query gagal
-//     }
-// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Ambil data dari form
@@ -53,8 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->query($sql_insert_order);
         }
 
-        // Redirect setelah sukses
-        // header("Location: pelanggan.php?status=success");
         header("Location: pelanggan_sukses.php");
         exit();
     } else {
@@ -229,7 +203,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
-    <h1>Silahkan pilih menu</h1>
+    <header>
+        <h1>Silahkan pilih menu</h1>
+        <button onclick="window.location.href='masuk.php'">Kembali</button>
+    </header>
     <form action="pelanggan.php" method="POST" id="customerForm">
         <label for="nama">Masukkan Nama:</label><br>
         <input type="text" id="nama" name="nama" required><br>
@@ -240,10 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="Menu_dan_cart">
         <h1>Menu Restoran</h1>
         <div class="menu-list">
-            <?php
-            // include "database.php";
-            // $sql = "SELECT * FROM menu";
-            // $result = $conn->query($sql);   
+            <?php 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='menu-item'>";

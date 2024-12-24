@@ -7,5 +7,6 @@
 </head>
 <body>
     <h1>Pesanan Anda berhasil ditambahkan, mohon menunggu pesanan anda dan jangan lupa bayar</h1>
+    <button onclick="window.location.href='masuk.php'">Kembali</button>
 </body>
 </html>
