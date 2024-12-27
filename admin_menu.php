@@ -45,16 +45,20 @@ if (isset($_GET['edit'])) {
         $row = $result->fetch_assoc(); // Ambil data hasil query
         ?>
         <!-- Tampilkan form edit -->
-        <h2>Edit Menu</h2>
-        <form action="admin_menu.php" method="POST">
-            <input type="hidden" name="id_menu" value="<?php echo $row['id_menu']; ?>"> <!-- ID menu disembunyikan -->
-            <label for="nama_makanan">Nama Makanan</label>
-            <input id="nama_makanan" type="text" name="nama_makanan" value="<?php echo $row['nama_makanan']; ?>">
-            <label for="harga">Harga</label>
-            <input id="harga" type="number" name="harga" value="<?php echo $row['harga']; ?>">
-            <button type="submit" name="edit">Simpan</button>
-        </form>
-        <button onclick="window.location.href='admin_menu.php'">Batal</button>
+        <section style="position: absolute; top: 250px; background-color: white; left: 42%; padding: 30px; border-radius: 20px; border: 1px solid black;">
+            <h2>Edit Menu</h2>
+            <form action="admin_menu.php" method="POST">
+                <input type="hidden" name="id_menu" value="<?php echo $row['id_menu']; ?>"> <!-- ID menu disembunyikan -->
+                <label for="nama_makanan">Nama Makanan</label><br>
+                <input id="nama_makanan" type="text" name="nama_makanan" value="<?php echo $row['nama_makanan']; ?>"><br>
+                <label for="harga">Harga</label><br>
+                <input id="harga" type="number" name="harga" value="<?php echo $row['harga']; ?>"><br>
+                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                    <button onclick="window.location.href='admin_menu.php'">Batal</button>
+                    <button type="submit" name="edit">Simpan</button>
+                </div>
+            </form>
+        </section>
         <?php
     } else {
         echo "Data tidak ditemukan!";
@@ -96,34 +100,146 @@ if (isset($_POST['tambah'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Admin</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        header{
+            width: 100%;
+            height: 100px;
+            background-color: #4CAF50;
+            display: flex;
+            justify-content: space-between;;
+            align-items: center;
+            padding: 0 5.78vw;
+        }
+
+        header p{
+            font-size: 2.25rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        header button{
+            padding: 7px 20px;
+            background-color: red;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .judul{
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;;
+            align-items: center;
+            padding: 0 5.78vw;
+        }
+
+        .judul button{
+            padding: 7px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 200px;
+        padding: 20px;
+    }
+
+    .data table {
+        width: 80%; /* Atau width: 100% untuk responsif penuh */
+        border-collapse: collapse; /* Menggabungkan border */
+        margin-bottom: 20px; /* Jarak bawah tabel */
+    }
+
+    .data th, .data td {
+        border: 1px solid #ddd; /* Border tipis */
+        padding: 8px;
+        text-align: left; /* Teks rata kiri di data */
+    }
+
+    .data th {
+        background-color: #f2f2f2; /* Warna latar belakang header */
+        text-align: center; /* Teks rata tengah di header */
+        font-weight: bold;
+    }
+
+    .data tr:nth-child(even) { /* warna baris genap */
+        background-color: #f2f2f2;
+    }
+
+    footer{
+        width: 100%;
+        display: flex;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+    }
+
+    footer a{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer .menu1{
+        background-color: #4CAF50;
+        text-decoration: none;
+        color: white;
+    }
+
+    footer .menu2{
+        background-color: white;
+        text-decoration: none;
+        color: black;
+        border: 1px solid black
+    }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Manajemen Menu</h1>
+        <p>Manajemen Menu</p>
         <button onclick="window.location.href='masuk.php'">Keluar</button>
     </header>
 
     <!-- Form Tambah Data -->
-     <section id="tambah menu" style="display: none;">
-        <h1>Tambah Menu</h1>
+     <section id="tambah menu" style="display: none; position: absolute; top: 250px; background-color: white; left: 42%; padding: 30px; border-radius: 20px; border: 1px solid black;">
+        <h1 style="margin-bottom: 20px;">Tambah Menu</h1>
         <form action="admin_menu.php" method="POST">
-            <label for="nama_makanan">Nama Makanan</label>
-            <input id="nama_makanan" type="text" name="nama_makanan" required>
-            <label for="harga">Harga</label>
-            <input id="harga" type="number" name="harga" required>
-            <button type="submit" name="tambah">Tambah</button>
+            <label for="nama_makanan">Nama Makanan</label><br>
+            <input id="nama_makanan" type="text" name="nama_makanan" required><br>
+            <label for="harga">Harga</label><br>
+            <input id="harga" type="number" name="harga" required><br>
+            <div class="btn" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                <button onclick="sembunyikanDivTambah()">Batal</button>
+                <button type="submit" name="tambah">Tambah</button>
+            </div>
         </form>
-        <button onclick="sembunyikanDivTambah()">Batal</button>
     </section>
 
-    <hr>
-
     <!-- Tabel Data -->
-     <section>
+     <section class="judul">
         <h2>Daftar Menu</h2>
         <button onclick="tampilkanDivTambah()">Tambah Menu</button>
     </section>
-    <section>
+
+    <section class="data">
         <table border="1" cellspacing="0" cellpadding="5">
             <tr>
                 <th>No</th>
@@ -152,10 +268,8 @@ if (isset($_POST['tambah'])) {
         </table>
     </section>
     <footer>
-        <menu>
-            <div class="menu"><a href="admin_menu.php">Menu</a></div>
-            <div class="menu"><a href="admin_pesanan.php">Pesanan</a></div>
-        </menu>
+        <a class="menu1" href="admin_menu.php">Menu</a>
+        <a class="menu2" href="admin_pesanan.php">Pesanan</a>
     </footer>
     <script>
         function tampilkanDivTambah() {

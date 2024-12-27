@@ -1,42 +1,3 @@
-<!-- <?php
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    if (isset($_GET['nama']) && isset($_GET['password'])) { // Memastikan input ada
-        $nama = $_GET['nama'];
-        $password = $_GET['password'];
-
-        $nama = htmlspecialchars($nama);
-        $password = htmlspecialchars($password);
-
-        if ($nama === "adminaseli123" && $password === "admin678"){
-            header("Location: admin_menu.php");
-        }else{
-            echo "<script>alert(Maaf, Anda tidak memiliki akses untuk mengakses halaman admin)</script>";
-        }
-    } else {
-        echo "Form belum disubmit.";
-    }
-}
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warmindo</title>
-</head>
-<body>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <label for="nama">Nama</label><br>
-        <input type="text" id="nama" name="nama" required><br>
-        <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" required><br>
-        <input type="submit" value="Masuk">
-    </form>
-    <button onclick="window.location.href='masuk.php'">Kembali</button>
-</body>
-</html> -->
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") { // Perubahan: Memproses POST
     if (isset($_POST['nama']) && isset($_POST['password'])) {
@@ -75,21 +36,81 @@ if (isset($_SESSION['error_message'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warmindo</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header{
+            width: 100%;
+            height: 100px;
+            background-color: #4CAF50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header h1{
+            color: white;
+        }
+
+        main{
+            padding: 20px;
+            background-color: #4CAF50;
+            width: 360px;
+            height: 310px;
+            margin: 90px auto 0 auto;
+            border-radius: 20px
+        }
+
+        main p{
+            font-size: 0.5 rem;
+            text-align: center;
+            margin-bottom: 18px;
+            color: white;
+        }
+
+        main form .kolom-input{
+            height: 28px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        main form .btn{
+            display: flex;
+            margin-top: 15px;
+            justify-content: space-between;
+            padding: 0 2px;
+        }
+
+        main form .btn .btn-bawah{
+            padding: 5px;
+            width: 80px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Validasi Admin</h1>
     </header>
     <main>
-        <h3>Tolong masukkan nama dan password untuk memastika bahwa Anda memang admin</h3>
+        <p>Tolong masukkan nama dan password untuk memastika bahwa Anda memang admin</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <label for="nama">Nama</label><br>
-            <input type="text" id="nama" name="nama" required><br>
+            <input class="kolom-input" type="text" id="nama" name="nama" required><br>
             <label for="password">Password</label><br>
-            <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Masuk">
+            <input class="kolom-input" type="password" id="password" name="password" required><br>
+            <div class="btn">
+                <button class="btn-bawah" onclick="window.location.href='masuk.php'">Kembali</button>
+                <input class="btn-bawah" type="submit" value="Masuk">
+            </div>
         </form>
-        <button onclick="window.location.href='masuk.php'">Kembali</button>
     </main>
 </body>
 </html>
