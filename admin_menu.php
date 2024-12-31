@@ -100,11 +100,15 @@ if (isset($_POST['tambah'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <style>
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "Poppins", serif;
         }
         
         header{
@@ -153,63 +157,63 @@ if (isset($_POST['tambah'])) {
         }
 
         .data {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        min-height: 200px;
-        padding: 20px;
-    }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 200px;
+            padding: 20px;
+        }
 
-    .data table {
-        width: 80%; /* Atau width: 100% untuk responsif penuh */
-        border-collapse: collapse; /* Menggabungkan border */
-        margin-bottom: 20px; /* Jarak bawah tabel */
-    }
+        .data table {
+            width: 80%; /* Atau width: 100% untuk responsif penuh */
+            border-collapse: collapse; /* Menggabungkan border */
+            margin-bottom: 20px; /* Jarak bawah tabel */
+        }
 
-    .data th, .data td {
-        border: 1px solid #ddd; /* Border tipis */
-        padding: 8px;
-        text-align: left; /* Teks rata kiri di data */
-    }
+        .data th, .data td {
+            border: 1px solid #ddd; /* Border tipis */
+            padding: 8px;
+            text-align: left; /* Teks rata kiri di data */
+        }
 
-    .data th {
-        background-color: #f2f2f2; /* Warna latar belakang header */
-        text-align: center; /* Teks rata tengah di header */
-        font-weight: bold;
-    }
+        .data th {
+            background-color: #f2f2f2; /* Warna latar belakang header */
+            text-align: center; /* Teks rata tengah di header */
+            font-weight: bold;
+        }
 
-    .data tr:nth-child(even) { /* warna baris genap */
-        background-color: #f2f2f2;
-    }
+        .data tr:nth-child(even) { /* warna baris genap */
+            background-color: #f2f2f2;
+        }
 
-    footer{
-        width: 100%;
-        display: flex;
-        height: 70px;
-        position: fixed;
-        bottom: 0;
-    }
+        footer{
+            width: 100%;
+            display: flex;
+            height: 70px;
+            position: fixed;
+            bottom: 0;
+        }
 
-    footer a{
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        footer a{
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    footer .menu1{
-        background-color: #4CAF50;
-        text-decoration: none;
-        color: white;
-    }
+        footer .menu1{
+            background-color: #4CAF50;
+            text-decoration: none;
+            color: white;
+        }
 
-    footer .menu2{
-        background-color: white;
-        text-decoration: none;
-        color: black;
-        border: 1px solid black
-    }
+        footer .menu2{
+            background-color: white;
+            text-decoration: none;
+            color: black;
+            border: 1px solid black
+        }
     </style>
 </head>
 <body>
