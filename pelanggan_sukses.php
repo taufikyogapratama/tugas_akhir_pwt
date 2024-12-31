@@ -20,6 +20,7 @@
         }
 
         main{
+            padding: 30px;
             width: 643px;
             height: 432px;
             background-color: white;
@@ -48,12 +49,32 @@
             width: 100px;
             margin: 0 auto;
         }
+
+        @media only screen and (max-width: 768px) {
+            main{
+                width: 300px;
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                border-radius: 20px;
+                margin-left: auto;
+                margin-right: auto; 
+                margin-top: 150px;
+            }
+
+            main h1{
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <main>
         <h1>Pesanan Anda berhasil ditambahkan, mohon menunggu pesanan anda dan jangan lupa bayar</h1>
-        <button onclick="window.location.href='masuk.php'">Kembali</button>
+        <button onclick="window.location.href='/tugas_akhir_pwt'">Kembali</button>
     </main>
 </body>
 </html>

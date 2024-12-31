@@ -16,15 +16,13 @@
 
     $result = $conn->query($sql_select);
 
-    // hapus / selesai melayani pelanggan
     if (isset($_GET['hapus'])) {
         $id_pelanggan = $_GET['hapus'];
     
-        // Hapus semua pesanan berdasarkan id_pelanggan
         $sql_hapus_pesanan = "DELETE FROM pesanan WHERE id_pelanggan = $id_pelanggan";
         $sql_hapus_pelanggan = "DELETE FROM pelanggan WHERE id_pelanggan = $id_pelanggan";
         if ($conn->query($sql_hapus_pesanan) && $conn->query($sql_hapus_pelanggan)) {
-            header("Location: admin_pesanan.php"); // Redirect ke halaman admin setelah hapus
+            header("Location: admin_pesanan.php");
             exit();
         } else {
             echo "Gagal menghapus semua pesanan: " . $conn->error;
@@ -148,11 +146,11 @@
         }
 
         footer{
-        width: 100%;
-        display: flex;
-        height: 70px;
-        position: fixed;
-        bottom: 0;
+            width: 100%;
+            display: flex;
+            height: 70px;
+            position: fixed;
+            bottom: 0;
         }
 
         footer a{
@@ -174,12 +172,86 @@
             color: white;
             text-decoration: none;
         }
+
+        @media only screen and (max-width: 768px) {
+            header p{
+                font-size: 1.25rem;
+            }
+
+            header button{
+                font-size: 0.8rem;
+                padding: 7px 10px;
+            }
+
+            .judul{
+                font-size: 1rem;
+                height: 60px;
+            }
+
+            footer{
+                width: 100%;
+                display: flex;
+                height: 50px;
+                position: fixed;
+                bottom: 0;
+            }
+
+            .kosong{
+                width: 50px;
+            }
+
+            .data {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                min-height: 150px;
+                padding: 8px;
+            }
+
+            .data table {
+                width: 95%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .data table thead th {
+                padding: 3px;
+                text-align: left;
+                font-size: 0.7rem;
+            }
+
+            .data table tr th{
+                font-size: 0.7rem;
+            }
+
+            .data table tbody td {
+                padding: 8px 10px;
+                text-align: left;
+                font-size: 0.7rem;
+                color: #333;
+            }
+
+            .data table tbody td a {
+                text-decoration: none;
+                color: white;
+                background-color: #f44336;
+                padding: 3px 7px;
+                border-radius: 5px;
+                font-size: 0.8rem;
+                transition: background-color 0.3s ease;
+                font-size: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <p>Halaman Daftar Pesanan</p>
-        <button onclick="window.location.href='masuk.php'">Keluar</button>
+        <button onclick="window.location.href='/tugas_akhir_pwt'">Keluar</button>
     </header>
     <main>
         <!-- Tabel Pesanan -->
@@ -219,12 +291,11 @@
     </section>
     </main>
     <footer>
-        <!-- <menu> -->
-            <!-- <div class="menu"><a href="admin_menu.php">Menu</a></div> -->
-            <a class="menu1" href="admin_menu.php">Menu</a>
-            <a class="menu2" href="admin_pesanan.php">Pesanan</a>
-            <!-- <div class="menu"><a href="admin_pesanan.php">Pesanan</a></div> -->
-        <!-- </menu> -->
+        <a class="menu1" href="admin_menu.php">Menu</a>
+        <a class="menu2" href="admin_pesanan.php">Pesanan</a>
     </footer>
+    <div class="kosong" style="height: 70px;">
+
+    </div>
 </body>
 </html>

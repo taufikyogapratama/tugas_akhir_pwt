@@ -36,7 +36,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 130px auto 0 auto;
+            margin: 180px auto 0 auto;
         }
 
         main h3{
@@ -58,6 +58,13 @@
             border-radius: 10px;
             border: none;
             cursor: pointer;
+        }
+
+        @media only screen and (max-width: 768px) {
+            header h1{
+                color: white;
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>

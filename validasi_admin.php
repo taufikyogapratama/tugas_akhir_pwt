@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Perubahan: Memproses POST
         $nama = htmlspecialchars($nama);
         $password = htmlspecialchars($password);
 
-        if ($nama === "adminaseli123" && $password === "admin678") {
+        if ($nama === "adminhebat" && $password === "admin1976") {
             header("Location: admin_menu.php");
             exit(); // Penting untuk menghentikan eksekusi setelah redirect
         } else {
@@ -107,7 +107,7 @@ if (isset($_SESSION['error_message'])) {
             <label for="password">Password</label><br>
             <input class="kolom-input" type="password" id="password" name="password" required><br>
             <div class="btn">
-                <button class="btn-bawah" onclick="window.location.href='masuk.php'">Kembali</button>
+                <button class="btn-bawah" onclick="window.location.href='/tugas_akhir_pwt'">Kembali</button>
                 <input class="btn-bawah" type="submit" value="Masuk">
             </div>
         </form>

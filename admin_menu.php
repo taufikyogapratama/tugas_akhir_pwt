@@ -45,7 +45,7 @@ if (isset($_GET['edit'])) {
         $row = $result->fetch_assoc(); // Ambil data hasil query
         ?>
         <!-- Tampilkan form edit -->
-        <section style="position: absolute; top: 250px; background-color: white; left: 42%; padding: 30px; border-radius: 20px; border: 1px solid black;">
+        <section id="edit-menu">
             <h2>Edit Menu</h2>
             <form action="admin_menu.php" method="POST">
                 <input type="hidden" name="id_menu" value="<?php echo $row['id_menu']; ?>"> <!-- ID menu disembunyikan -->
@@ -166,24 +166,24 @@ if (isset($_POST['tambah'])) {
         }
 
         .data table {
-            width: 80%; /* Atau width: 100% untuk responsif penuh */
-            border-collapse: collapse; /* Menggabungkan border */
-            margin-bottom: 20px; /* Jarak bawah tabel */
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
         .data th, .data td {
-            border: 1px solid #ddd; /* Border tipis */
+            border: 1px solid #ddd;
             padding: 8px;
-            text-align: left; /* Teks rata kiri di data */
+            text-align: left;
         }
 
         .data th {
-            background-color: #f2f2f2; /* Warna latar belakang header */
-            text-align: center; /* Teks rata tengah di header */
+            background-color: #f2f2f2;
+            text-align: center;
             font-weight: bold;
         }
 
-        .data tr:nth-child(even) { /* warna baris genap */
+        .data tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
@@ -214,16 +214,132 @@ if (isset($_POST['tambah'])) {
             color: black;
             border: 1px solid black
         }
+
+        .kosong{
+            height: 70px;
+        }
+
+        #edit-menu{
+            position: absolute;
+            top: 250px;
+            background-color: white;
+            left: 42%;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid black;
+        }
+
+        #tambah-menu{
+            display: none;
+            position: absolute;
+            top: 250px;
+            background-color: white;
+            left: 42%;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid black;
+        }
+
+        @media only screen and (max-width: 768px) {
+            header p{
+                font-size: 1.25rem;
+            }
+
+            header button{
+                font-size: 0.8rem;
+                padding: 7px 10px;
+            }
+
+            .judul{
+                width: 100%;
+                height: 80px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 5.78vw;
+            }
+
+            .judul h2{
+                font-size: 1rem;
+            }
+
+            .judul button{
+                padding: 5px 10px;
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                font-weight: bold;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 0.7rem;
+            }
+
+            footer{
+                width: 100%;
+                display: flex;
+                height: 50px;
+                position: fixed;
+                bottom: 0;
+            }
+
+            .kosong{
+                width: 50px;
+            }
+
+            .data {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                min-height: 150px;
+                padding: 8px;
+            }
+
+            .data table {
+                width: 95%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            .data th, .data td {
+                border: 1px solid #ddd;
+                padding: 5px;
+                text-align: left;
+                font-size: 0.8rem;
+            }
+
+            #edit-menu{
+                position: absolute;
+                top: 250px;
+                background-color: white;
+                left: 11%;
+                padding: 30px;
+                border-radius: 20px;
+                border: 1px solid black;
+            }
+
+            #tambah-menu{
+                display: none;
+                position: absolute;
+                top: 250px;
+                background-color: white;
+                left: 11%;
+                padding: 30px;
+                border-radius: 20px;
+                border: 1px solid black;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <p>Manajemen Menu</p>
-        <button onclick="window.location.href='masuk.php'">Keluar</button>
+        <button onclick="window.location.href='/tugas_akhir_pwt'">Keluar</button>
     </header>
 
     <!-- Form Tambah Data -->
-     <section id="tambah menu" style="display: none; position: absolute; top: 250px; background-color: white; left: 42%; padding: 30px; border-radius: 20px; border: 1px solid black;">
+    <!-- style="display: none; position: absolute; top: 250px; background-color: white; left: 42%; padding: 30px; border-radius: 20px; border: 1px solid black;" -->
+     <section id="tambah-menu">
         <h1 style="margin-bottom: 20px;">Tambah Menu</h1>
         <form action="admin_menu.php" method="POST">
             <label for="nama_makanan">Nama Makanan</label><br>
@@ -275,13 +391,16 @@ if (isset($_POST['tambah'])) {
         <a class="menu1" href="admin_menu.php">Menu</a>
         <a class="menu2" href="admin_pesanan.php">Pesanan</a>
     </footer>
+    <div class="kosong">
+
+    </div>
     <script>
         function tampilkanDivTambah() {
-          const div_tambah = document.getElementById("tambah menu");
+          const div_tambah = document.getElementById("tambah-menu");
           div_tambah.style.display = "block";
         }
         function sembunyikanDivTambah() {
-          const div_tambah = document.getElementById("tambah menu");
+          const div_tambah = document.getElementById("tambah-menu");
           div_tambah.style.display = "none";
         }
     </script>

@@ -174,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .menu-list {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
             padding: 20px;
@@ -261,6 +262,168 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .div-kosong{
             height: 200px;
         }
+
+        @media only screen and (max-width: 768px) {
+            header p{
+                font-size: 1.25rem;
+            }
+
+            header button{
+                font-size: 0.8rem;
+                padding: 7px 10px;
+            }
+
+            form {
+                max-width: 400px;
+                margin: 6px auto;
+                background: #fff;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            form h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #4CAF50;
+            }
+
+            form label {
+                display: block;
+                margin-bottom: 2px;
+                font-weight: bold;
+                font-size: 0.8rem;
+            }
+
+            form input, select {
+                width: 100%;
+                padding: 5px;
+                margin-bottom: 5px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                font-size: 16px;
+                background-color: white;
+            }
+
+            form input:focus {
+                border-color: #4CAF50;
+                outline: none;
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            }
+
+            form button {
+                width: 100%;
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            form button:hover {
+                background-color: #45a049;
+            }
+
+            .judul{
+                font-size: 1.2rem;
+            }
+
+            .menu-item {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 9px;
+                width: 170px;
+                text-align: center;
+            }
+            .menu-item button {
+                margin-top: 6px;
+                padding: 3px 8px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 0.5rem;
+            }
+
+            .menu-item h3{
+                font-size: 0.8rem;
+            }
+
+            .menu-item p{
+                font-size: 0.8rem;
+            }
+
+            .cart {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 170px;
+                overflow: auto;
+                background-color: #f9f9f9;
+                border-top: 1px solid #ccc;
+                padding: 10px 10px 15px 10px;
+                box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            }
+            .cart h3 {
+                margin: 0 0 8px;
+                font-size: 1rem;
+            }
+
+            .cart-items p{
+                font-size: 0.8rem;
+            }
+            .cart-items {
+                max-height: 150px;
+                overflow-y: auto;
+                margin-bottom: 10px;
+            }
+            .cart-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #ddd;
+                padding: 5px 0;
+            }
+            .cart-item span {
+                flex: 1;
+                font-size: 0.8rem;
+            }
+            .cart-item button {
+                padding: 3px;
+                background-color: #ff4d4d;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                margin-right: 1.563vw;
+                font-size: 0.6rem;
+            }
+
+            .cart .cart-total{
+                font-size: 0.8rem;
+            }
+
+            .checkout button {
+                position: fixed;
+                padding: 5px 15px;
+                margin-left: auto;
+                margin-right: auto;
+                bottom: 19px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .div-kosong{
+                height: 170px;
+            }
+        }
     </style>
     <script>
         let cart = [];
@@ -319,6 +482,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 alert('Keranjang masih kosong!');
                 return;
             }
+
+            const confirmOrder = confirm('Apakah Anda yakin ingin memesan menu ini?');
+            if (!confirmOrder) {
+                return;
+            }
             // Ambil elemen form pelanggan
             const customerForm = document.getElementById('customerForm');
 
@@ -338,7 +506,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <header>
         <p>Silahkan pilih menu</p>
-        <button onclick="window.location.href='masuk.php'">Kembali</button>
+        <button onclick="window.location.href='/tugas_akhir_pwt'">Kembali</button>
     </header>
     <form action="pelanggan.php" method="POST" id="customerForm">
         <label for="nama">Masukkan Nama:</label><br>
@@ -394,7 +562,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Total Harga: Rp 0
             </div>
             <div class="checkout">
-                <button type="button" onclick="checkout()">Checkout</button>
+                <button type="button" onclick="checkout()">Pesan</button>
             </div>
         </div>
     </div>
