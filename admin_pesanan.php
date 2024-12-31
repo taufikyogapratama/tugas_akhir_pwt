@@ -1,4 +1,12 @@
 <?php
+
+    session_start();
+
+    if (!isset($_SESSION['admin_logged_in'])) {
+        header("Location: validasi_admin.php");
+        exit();
+    }
+
     include "database.php";
 
     $sql_select = "SELECT 
@@ -251,7 +259,7 @@
 <body>
     <header>
         <p>Halaman Daftar Pesanan</p>
-        <button onclick="window.location.href='/tugas_akhir_pwt'">Keluar</button>
+        <button onclick="window.location.href='logout.php'">Keluar</button>
     </header>
     <main>
         <!-- Tabel Pesanan -->

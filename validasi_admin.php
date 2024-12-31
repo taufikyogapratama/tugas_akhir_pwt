@@ -1,32 +1,34 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { // Perubahan: Memproses POST
-    if (isset($_POST['nama']) && isset($_POST['password'])) {
-        $nama = $_POST['nama']; // Perubahan: Menggunakan $_POST
-        $password = $_POST['password']; // Perubahan: Menggunakan $_POST
+session_start();
 
+// Periksa apakah admin sudah login
+if (isset($_SESSION['admin_logged_in'])) {
+    header("Location: admin_menu.php"); // Jika sudah login, arahkan ke halaman admin
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['nama']) && isset($_POST['password'])) {
+        $nama = $_POST['nama'];
+        $password = $_POST['password'];
+
+        // Sanitasi input
         $nama = htmlspecialchars($nama);
         $password = htmlspecialchars($password);
 
+        // Periksa apakah username dan password cocok
         if ($nama === "adminhebat" && $password === "admin1976") {
-            header("Location: admin_menu.php");
-            exit(); // Penting untuk menghentikan eksekusi setelah redirect
+            // Set session jika login berhasil
+            $_SESSION['admin_logged_in'] = true;
+            header("Location: admin_menu.php"); // Redirect ke halaman admin_menu.php
+            exit();
         } else {
-            // Menggunakan session untuk mengirim pesan ke halaman yang sama
-            session_start();
-            $_SESSION['error_message'] = "Maaf, Anda tidak memiliki akses untuk mengakses halaman admin";
-            header("Location: " . htmlspecialchars($_SERVER["PHP_SELF"])); // Redirect kembali ke form
+            // Set session untuk error message jika login gagal
+            $_SESSION['error_message'] = "Nama atau password salah!";
+            header("Location: validasi_admin.php"); // Kembali ke halaman login
             exit();
         }
-    } else {
-        echo "Form belum disubmit."; // Ini mungkin tidak terlihat karena redirect
     }
-}
-
-// Memeriksa pesan error dari session
-session_start();
-if (isset($_SESSION['error_message'])) {
-    echo "<script>alert('" . $_SESSION['error_message'] . "');</script>";
-    unset($_SESSION['error_message']); // Menghapus pesan dari session setelah ditampilkan
 }
 ?>
 
@@ -35,7 +37,7 @@ if (isset($_SESSION['error_message'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warmindo</title>
+    <title>Validasi Admin</title>
     <style>
         *{
             margin: 0;
@@ -101,7 +103,7 @@ if (isset($_SESSION['error_message'])) {
     </header>
     <main>
         <p>Tolong masukkan nama dan password untuk memastika bahwa Anda memang admin</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form action="validasi_admin.php" method="POST">
             <label for="nama">Nama</label><br>
             <input class="kolom-input" type="text" id="nama" name="nama" required><br>
             <label for="password">Password</label><br>

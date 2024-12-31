@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+// Periksa apakah admin sudah login
+if (!isset($_SESSION['admin_logged_in'])) {
+    header("Location: validasi_admin.php"); // Jika belum login, arahkan ke halaman validasi_admin.php
+    exit();
+}
 // Sertakan file koneksi database
 include "database.php";
 
@@ -334,7 +342,7 @@ if (isset($_POST['tambah'])) {
 <body>
     <header>
         <p>Manajemen Menu</p>
-        <button onclick="window.location.href='/tugas_akhir_pwt'">Keluar</button>
+        <button onclick="window.location.href='logout.php'">Keluar</button>
     </header>
 
     <!-- Form Tambah Data -->
